@@ -1,0 +1,38 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Сервис для предоставления API для приложению Movies explorer",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "eslint": "npx eslint .",
+    "eslint-fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeachMood/movies-explorer-api.git"
+  },
+  "keywords": [
+    "фильмы",
+    "кино",
+    "искусство",
+    "развлечени"
+  ],
+  "author": "Анна Воронова",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PeachMood/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/PeachMood/movies-explorer-api#readme",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.3"
+  }
+}
