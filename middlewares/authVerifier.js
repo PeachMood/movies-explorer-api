@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-const { Unauthorized } = require('http-errors');
 
 const appConfig = require('../configs/appConfig');
+const { Unauthorized } = require('../errors/errors');
+const { } = require();
 
 const authVerifier = (req, res, next) => {
   const token = req.cookies.jwt;

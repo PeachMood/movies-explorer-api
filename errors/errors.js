@@ -1,5 +1,5 @@
 const { HttpError } = require('./base.js');
-const { BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND } = require('../utils/statuses.js');
+const { BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND } = require('../utils/statusCodes.js');
 
 class BadRequest extends HttpError {
   constructor(message = 'Bad Request') {
