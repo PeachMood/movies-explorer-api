@@ -7,7 +7,7 @@ const StatusCodes = require('../utils/StatusCodes');
 const BadRequest = require('../utils/errors/BadRequest');
 
 function getCurrentUser(req, res, next) {
-  const userId = req.auth.userId;
+  const { userId } = req.auth;
 
   User.findById(userId)
     .then((currentUser) => res.status(StatusCodes.OK).json(currentUser))
@@ -15,7 +15,7 @@ function getCurrentUser(req, res, next) {
 }
 
 function updateCurrentUser(req, res, next) {
-  const userId = req.auth.userId;
+  const { userId } = req.auth;
   const user = req.body;
 
   User.findByIdAndUpdate(userId, user, { new: true, runValidators: true })

@@ -37,7 +37,7 @@ function deleteMovie(req, res, next) {
   const NOT_FOUND_MESSAGE = 'Фильм с указанным id не найден.';
 
   const owner = req.auth.userId;
-  const movieId = req.params.movieId;
+  const { movieId } = req.params;
 
   Movie.findById(movieId)
     .then((movie) => {
