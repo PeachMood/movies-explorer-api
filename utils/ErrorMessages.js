@@ -1,7 +1,3 @@
-function setFirstLetterUppercase(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 class ErrorMessages {
   constructor(property = '') {
     this.property = property;
@@ -10,16 +6,6 @@ class ErrorMessages {
 
   setRequired() {
     this.messages.required = `Поле ${this.property} является обязательным`;
-    return this;
-  }
-
-  setConflict(resource) {
-    this.messages.conflict = `${setFirstLetterUppercase(resource)} с указанным ${this.property} не существует.`;
-    return this;
-  }
-
-  setUnfound(resource) {
-    this.messages.unfound = `${setFirstLetterUppercase(resource)} с указанным ${this.property} не найден.`;
     return this;
   }
 

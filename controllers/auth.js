@@ -9,11 +9,8 @@ const User = require('../models/user');
 const StatusCodes = require('../utils/StatusCodes');
 const BadRequest = require('../utils/errors/BadRequest');
 const Conflict = require('../utils/errors/Conflict');
-const ErrorMessages = require('../utils/ErrorMessages');
 
 function register(req, res, next) {
-  const registerMessages = new ErrorMessages('id').setConflict('пользователь').build().messages;
-
   const { saltLength } = appConfig;
   const { email, password, name } = req.body;
 
@@ -24,7 +21,7 @@ function register(req, res, next) {
       if (error instanceof ValidationError) {
         next(new BadRequest(error.message));
       } else if (error.code === 11000) {
-        next(new Conflict(registerMessages.conflict));
+        next(new Conflict('Пользователь с указанным email уже существует.'));
       } else {
         next(error);
       }
@@ -32,8 +29,6 @@ function register(req, res, next) {
 }
 
 function login(req, res, next) {
-  const loginMessages = new ErrorMessages().setCustom('success', 'Фильм успешно удален.').build().messages;
-
   const { jwtSecret, expiresInSec } = appConfig;
   const { email, password } = req.body;
 
@@ -42,14 +37,13 @@ function login(req, res, next) {
       const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: expiresInSec });
 
       const options = { httpOnly: true, maxAge: expiresInSec * 1000 };
-      res.cookie('jwt', token, options).send(loginMessages.success);
+      res.cookie('jwt', token, options).send('Пользователь успешно авторизован.');
     })
     .catch(next);
 }
 
 function logout(req, res, next) {
-  const logoutMessages = new ErrorMessages().setCustom('success', 'Пользователь успешно покинул сайт.').build().messages;
-  res.clearCookie('jwt', { sameSite: 'none', secure: true }).send(logoutMessages.success);
+  res.clearCookie('jwt', { sameSite: 'none', secure: true }).send('Пользователь успешно покинул сайт.');
 }
 
 module.exports = { register, login, logout };
