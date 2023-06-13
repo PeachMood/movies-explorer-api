@@ -5,6 +5,7 @@ const { ValidationError } = Error;
 const User = require('../models/user');
 const StatusCodes = require('../utils/StatusCodes');
 const BadRequest = require('../utils/errors/BadRequest');
+const Conflict = require('../utils/errors/Conflict');
 
 function getCurrentUser(req, res, next) {
   const { userId } = req.auth;
@@ -24,6 +25,8 @@ function updateCurrentUser(req, res, next) {
     .catch((error) => {
       if (error instanceof ValidationError) {
         next(new BadRequest(error.message));
+      } else if (error.code === 11000) {
+        next(new Conflict('Пользователь с указанным email уже существует.'));
       } else {
         next(error);
       }
