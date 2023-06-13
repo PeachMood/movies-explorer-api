@@ -7,6 +7,7 @@ const StatusCodes = require('../utils/StatusCodes');
 const BadRequest = require('../utils/errors/BadRequest');
 const Forbidden = require('../utils/errors/Forbidden');
 const NotFound = require('../utils/errors/NotFound');
+const ErrorMessages = require('../utils/ErrorMessages');
 
 function getMovies(req, res, next) {
   const owner = req.auth.userId;
@@ -32,9 +33,11 @@ function createMovie(req, res, next) {
 }
 
 function deleteMovie(req, res, next) {
-  const FORBIDDEN_MESSAGE = 'Нет прав на удаление указанного фильма.';
-  const SUCCESS_MESSAGE = 'Фильм успешно удален.';
-  const NOT_FOUND_MESSAGE = 'Фильм с указанным id не найден.';
+  const movieMessages = new ErrorMessages('id')
+    .setUnfound('фильм')
+    .setCustom('forbidden', 'Нет прав на удаление указанного фильма.')
+    .setCustom('success', 'Фильм успешно удален.')
+    .build();
 
   const owner = req.auth.userId;
   const { movieId } = req.params;
@@ -42,14 +45,14 @@ function deleteMovie(req, res, next) {
   Movie.findById(movieId)
     .then((movie) => {
       if (!movie) {
-        throw new NotFound(NOT_FOUND_MESSAGE);
+        throw new NotFound(movieMessages.unfound);
       }
       if (movie.owner.toString() !== owner) {
-        throw new Forbidden(FORBIDDEN_MESSAGE);
+        throw new Forbidden(movieMessages.forbidden);
       }
       return Movie.deleteOne(movie);
     })
-    .then(() => res.status(StatusCodes.OK).send(SUCCESS_MESSAGE))
+    .then(() => res.status(StatusCodes.OK).send(movieMessages.success))
     .catch((error) => next(error));
 }
 

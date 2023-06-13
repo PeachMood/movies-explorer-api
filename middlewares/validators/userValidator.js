@@ -8,8 +8,8 @@ const emailMessagesBuilder = new ErrorMessages('email')
   .build();
 
 const emailMessages = {
-  'any.required': emailMessagesBuilder.required,
-  'string.base': emailMessagesBuilder.type,
+  'any.required': emailMessagesBuilder.messages.required,
+  'string.base': emailMessagesBuilder.messages.type,
 };
 
 const passwordMessagesBuilder = new ErrorMessages('password')
@@ -18,8 +18,8 @@ const passwordMessagesBuilder = new ErrorMessages('password')
   .build();
 
 const passwordMessages = {
-  'any.required': passwordMessagesBuilder.required,
-  'string.base': passwordMessagesBuilder.type,
+  'any.required': passwordMessagesBuilder.messages.required,
+  'string.base': passwordMessagesBuilder.messages.type,
 };
 
 const nameMessagesBuilder = new ErrorMessages('name')
@@ -29,10 +29,10 @@ const nameMessagesBuilder = new ErrorMessages('name')
   .build();
 
 const nameMessages = {
-  'any.required': nameMessagesBuilder.required,
-  'string.base': nameMessagesBuilder.type,
-  'string.min': nameMessagesBuilder.length,
-  'string.max': nameMessagesBuilder.length,
+  'any.required': nameMessagesBuilder.messages.required,
+  'string.base': nameMessagesBuilder.messages.type,
+  'string.min': nameMessagesBuilder.messages.length,
+  'string.max': nameMessagesBuilder.messages.length,
 };
 
 const validateLogin = celebrate({

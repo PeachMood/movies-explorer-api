@@ -10,10 +10,10 @@ const movieIdMessagesBuilder = new ErrorMessages('movieId')
   .build();
 
 const movieIdMessages = {
-  'any.required': movieIdMessagesBuilder.required,
-  'string.base': movieIdMessagesBuilder.type,
-  'string.hex': movieIdMessagesBuilder.type,
-  'string.length': movieIdMessagesBuilder.length,
+  'any.required': movieIdMessagesBuilder.messages.required,
+  'string.base': movieIdMessagesBuilder.messages.type,
+  'string.hex': movieIdMessagesBuilder.messages.type,
+  'string.length': movieIdMessagesBuilder.messages.length,
 };
 
 const validateDeleteMovie = celebrate({
@@ -23,10 +23,12 @@ const validateDeleteMovie = celebrate({
   }),
 });
 
-const movieMessages = new ErrorMessages()
+const movieMessagesBuilder = new ErrorMessages()
   .setCustom('invalid', 'Поле не соответсвует указанному типу.')
   .setCustom('url', 'Поле должно быть строкой с URL-адресом')
   .build();
+
+const movieMessages = movieMessagesBuilder.messages;
 
 function validateUrl(value, helper) {
   return validator.isURL(value) ? value : helper.message(movieMessages.url);
