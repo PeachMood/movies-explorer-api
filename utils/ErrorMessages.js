@@ -8,13 +8,13 @@ class ErrorMessages {
     this.messages = {};
   }
 
-  setEmpty() {
-    this.empty = `Поле ${this.property} является обязательным`;
+  setRequired() {
+    this.required = `Поле ${this.property} является обязательным`;
     return this;
   }
 
   setConflict(resource) {
-    this.conflict = `${setFirstLetterUppercase(resource)} с указанным ${this.property} уже существует.`;
+    this.conflict = `${setFirstLetterUppercase(resource)} с указанным ${this.property} не существует.`;
     return this;
   }
 
@@ -23,13 +23,17 @@ class ErrorMessages {
     return this;
   }
 
-  setBase(base) {
-    this.base = `Поле ${this.property} должно быть в следующем формате: ${base}.`;
+  setType(type) {
+    this.type = `Поле ${this.property} должно быть следующего типа: ${type}.`;
     return this;
   }
 
-  setLength(min, max) {
-    this.length = `Поле ${this.property} должно содержать от ${min} до ${max} символов.`;
+  setLength(max, min) {
+    if (!min) {
+      this.length = `Поле ${this.property} должно быть длинной ${max} символов.`;
+    } else {
+      this.length = `Поле ${this.property} должно содержать от ${min} до ${max} символов.`;
+    }
     return this;
   }
 
