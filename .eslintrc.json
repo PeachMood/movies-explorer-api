@@ -18,6 +18,12 @@
           "__v"
         ]
       }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "next"
+      }
     ]
   }
 }

@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 const appConfig = require('../configs/appConfig');
-const errorMessages = require('../utils/errorMessages');
-const { Unauthorized } = require('../errors/errors');
+const Unauthorized = require('../utils/errors/Unauthorized');
 
-const authVerifier = (req, res, next) => {
+function authVerifier(req, res, next) {
+  const AUTH_REQUIRED_MESSAGE = 'Требуется авторизация';
   const token = req.cookies.jwt;
 
   if (!token) {
-    next(new Unauthorized(errorMessages.auth.token));
+    next(new Unauthorized(AUTH_REQUIRED_MESSAGE));
     return;
   }
 
@@ -16,11 +16,11 @@ const authVerifier = (req, res, next) => {
   try {
     payload = jwt.verify(token, appConfig.jwtSecret);
   } catch (err) {
-    next(new Unauthorized(errorMessages.auth.token));
+    next(new Unauthorized(AUTH_REQUIRED_MESSAGE));
     return;
   }
-  req.auth = { userId: payload._id };
+  req.auth = { id: payload._id };
   next();
-};
+}
 
 module.exports = authVerifier;

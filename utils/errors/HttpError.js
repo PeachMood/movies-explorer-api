@@ -5,8 +5,4 @@ class HttpError extends Error {
   }
 }
 
-function isHttpError(error) {
-  return typeof error === HttpError;
-}
-
-module.exports = { HttpError, isHttpError };
+module.exports = HttpError;
