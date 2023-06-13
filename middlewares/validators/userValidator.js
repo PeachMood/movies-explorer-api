@@ -1,61 +1,50 @@
 const { celebrate, Joi } = require('celebrate');
 
-const ErrorMessages = require('../../utils/ErrorMessages');
+const ErrorMessagesBuilder = require('../../utils/messages/ErrorMessagesBuilder');
 
-const emailMessagesBuilder = new ErrorMessages('email')
+const emailMessages = new ErrorMessagesBuilder('email')
+  .setType('string')
   .setRequired()
-  .setType('строка с адресом электронной почты')
+  .setEmpty()
+  .setFormat('строка с адресом электронной почты')
   .build();
 
-const emailMessages = {
-  'any.required': emailMessagesBuilder.messages.required,
-  'string.base': emailMessagesBuilder.messages.type,
-};
-
-const passwordMessagesBuilder = new ErrorMessages('password')
+const passwordMessages = new ErrorMessagesBuilder('password')
+  .setType('string')
   .setRequired()
-  .setType('строка')
+  .setEmpty()
+  .setFormat('строка')
   .build();
 
-const passwordMessages = {
-  'any.required': passwordMessagesBuilder.messages.required,
-  'string.base': passwordMessagesBuilder.messages.type,
-};
-
-const nameMessagesBuilder = new ErrorMessages('name')
+const nameMessages = new ErrorMessagesBuilder('name')
+  .setType('string')
   .setRequired()
-  .setType('строка')
+  .setEmpty()
+  .setFormat('строка')
   .setLength(2, 30)
   .build();
 
-const nameMessages = {
-  'any.required': nameMessagesBuilder.messages.required,
-  'string.base': nameMessagesBuilder.messages.type,
-  'string.min': nameMessagesBuilder.messages.length,
-  'string.max': nameMessagesBuilder.messages.length,
-};
-
 const validateLogin = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email().messages(emailMessages),
-    password: Joi.string().required().messages(passwordMessages),
+    email: Joi.string().required().email().messages(emailMessages.toJoi()),
+    password: Joi.string().required().messages(passwordMessages.toJoi()),
   }),
 });
 
 const validateRegister = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().email().required().messages(emailMessages),
-    password: Joi.string().required().messages(passwordMessages),
+    email: Joi.string().email().required().messages(emailMessages.toJoi()),
+    password: Joi.string().required().messages(passwordMessages.toJoi()),
     name: Joi.string().required().min(2).max(30)
-      .messages(nameMessages),
+      .messages(nameMessages.toJoi()),
   }),
 });
 
 const validateUpdateCurrentUser = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().messages(emailMessages),
+    email: Joi.string().required().messages(emailMessages.toJoi()),
     name: Joi.string().required().min(2).max(30)
-      .messages(nameMessages),
+      .messages(nameMessages.toJoi()),
   }),
 });
 

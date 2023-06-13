@@ -1,4 +1,4 @@
-const { HttpError } = require('./HttpError');
+const HttpError = require('./HttpError');
 const { NOT_FOUND } = require('../StatusCodes');
 
 class NotFound extends HttpError {

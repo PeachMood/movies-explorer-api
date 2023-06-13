@@ -45,7 +45,7 @@ function deleteMovie(req, res, next) {
       }
       return Movie.deleteOne(movie);
     })
-    .then(() => res.status(StatusCodes.OK).send('Фильм успешно удален.'))
+    .then(() => res.status(StatusCodes.OK).json({ message: 'Фильм успешно удален.' }))
     .catch((error) => next(error));
 }
 

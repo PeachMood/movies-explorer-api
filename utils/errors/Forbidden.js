@@ -1,4 +1,4 @@
-const { HttpError } = require('./HttpError');
+const HttpError = require('./HttpError');
 const { FORBIDDEN } = require('../StatusCodes');
 
 class Forbidden extends HttpError {

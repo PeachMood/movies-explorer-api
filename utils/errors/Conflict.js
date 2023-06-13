@@ -1,4 +1,4 @@
-const { HttpError } = require('./HttpError');
+const HttpError = require('./HttpError');
 const { CONFLICT } = require('../StatusCodes');
 
 class Conflict extends HttpError {

@@ -1,4 +1,4 @@
-const { HttpError } = require('./HttpError');
+const HttpError = require('./HttpError');
 const { BAD_REQUEST } = require('../StatusCodes');
 
 class BadRequest extends HttpError {

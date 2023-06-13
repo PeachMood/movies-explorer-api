@@ -12,35 +12,40 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator: (value) => validator.isEmail(value),
     },
-    password: {
-      type: String,
-      select: false,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
-    },
+  },
+  password: {
+    type: String,
+    select: false,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 30,
   },
 }, { versionKey: false });
 
+userSchema.methods.toJSON = function toJSON() {
+  const data = this.toObject();
+  delete data.password;
+  return data;
+};
+
 userSchema.statics.findUserByCredentials = function findUserByCredentials(credentials) {
-  const INCORRECT_CREDENTIALS_MESSAGE = 'Неправильные почта или пароль.';
   const { email, password } = credentials;
 
   return this.findOne({ email })
     .select('+password')
     .then((user) => {
       if (!user) {
-        throw new Unauthorized(INCORRECT_CREDENTIALS_MESSAGE);
+        throw new Unauthorized('Неправильные почта или пароль.');
       }
 
       return bcrypt.compare(password, user.password)
         .then((iMatched) => {
           if (!iMatched) {
-            throw new Unauthorized(INCORRECT_CREDENTIALS_MESSAGE);
+            throw new Unauthorized('Неправильные почта или пароль.');
           }
           return user;
         });

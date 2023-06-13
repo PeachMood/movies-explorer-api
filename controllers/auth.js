@@ -16,7 +16,7 @@ function register(req, res, next) {
 
   bcrypt.hash(password, saltLength)
     .then((hash) => User.create({ email, name, password: hash }))
-    .then((user) => res.status(StatusCodes.CREATED).json(user))
+    .then((user) => res.status(StatusCodes.CREATED).json(user.toJSON()))
     .catch((error) => {
       if (error instanceof ValidationError) {
         next(new BadRequest(error.message));
@@ -37,13 +37,13 @@ function login(req, res, next) {
       const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: expiresInSec });
 
       const options = { httpOnly: true, maxAge: expiresInSec * 1000 };
-      res.cookie('jwt', token, options).send('Пользователь успешно авторизован.');
+      res.cookie('jwt', token, options).json({ message: 'Пользователь успешно авторизован.' });
     })
     .catch(next);
 }
 
 function logout(req, res, next) {
-  res.clearCookie('jwt', { sameSite: 'none', secure: true }).send('Пользователь успешно покинул сайт.');
+  res.clearCookie('jwt', { sameSite: 'none', secure: true }).json({ message: 'Пользователь успешно покинул сайт.' });
 }
 
 module.exports = { register, login, logout };

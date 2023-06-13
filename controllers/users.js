@@ -10,7 +10,7 @@ function getCurrentUser(req, res, next) {
   const { userId } = req.auth;
 
   User.findById(userId)
-    .then((currentUser) => res.status(StatusCodes.OK).json(currentUser))
+    .then((currentUser) => res.status(StatusCodes.OK).json(currentUser.toJSON()))
     .catch((error) => next(error));
 }
 
@@ -20,7 +20,7 @@ function updateCurrentUser(req, res, next) {
 
   User.findByIdAndUpdate(userId, user, { new: true, runValidators: true })
     .orFail()
-    .then((updatedUser) => res.status(StatusCodes.OK).json(updatedUser))
+    .then((updatedUser) => res.status(StatusCodes.OK).json(updatedUser.toJSON()))
     .catch((error) => {
       if (error instanceof ValidationError) {
         next(new BadRequest(error.message));
