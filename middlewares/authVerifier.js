@@ -19,7 +19,7 @@ function authVerifier(req, res, next) {
     next(new Unauthorized(AUTH_REQUIRED_MESSAGE));
     return;
   }
-  req.auth = { id: payload._id };
+  req.auth = { userId: payload._id };
   next();
 }
 

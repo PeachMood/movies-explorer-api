@@ -9,7 +9,7 @@ const Forbidden = require('../utils/errors/Forbidden');
 const NotFound = require('../utils/errors/NotFound');
 
 function getMovies(req, res, next) {
-  const owner = req.auth.id;
+  const owner = req.auth.userId;
 
   Movie.find({ owner })
     .then((movies) => res.status(StatusCodes.OK).json(movies))
@@ -17,7 +17,7 @@ function getMovies(req, res, next) {
 }
 
 function createMovie(req, res, next) {
-  const owner = req.auth.id;
+  const owner = req.auth.userId;
   const movie = req.body;
 
   Movie.create({ owner, ...movie })
@@ -36,8 +36,8 @@ function deleteMovie(req, res, next) {
   const SUCCESS_MESSAGE = 'Фильм успешно удален.';
   const NOT_FOUND_MESSAGE = 'Фильм с указанным id не найден.';
 
-  const owner = req.auth.id;
-  const { movieId } = req.params;
+  const owner = req.auth.userId;
+  const movieId = req.params.movieId;
 
   Movie.findById(movieId)
     .then((movie) => {
