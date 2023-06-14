@@ -50,5 +50,3 @@ MONGO_DB=bitfilmsdb
 Домен: https://github.com/PeachMood/movies-explorer-api
 
 IP: 255.255.255.255
-
-OpenAPI документация: https://github.com/PeachMood/movies-explorer-api
