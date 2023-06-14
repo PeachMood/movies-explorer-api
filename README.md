@@ -1,5 +1,5 @@
 # Movie explorer API 🎬
-Сервис, предоставляющий API для приложеня Movies explorer.
+Сервис, предоставляющий API для приложения Movies explorer.
 
 ## Инструменты разработки
 #### Node.js
@@ -48,5 +48,7 @@ MONGO_DB=bitfilmsdb
 
 ## Ссылки
 Домен: https://github.com/PeachMood/movies-explorer-api
+
 IP: 255.255.255.255
+
 OpenAPI документация: https://github.com/PeachMood/movies-explorer-api
