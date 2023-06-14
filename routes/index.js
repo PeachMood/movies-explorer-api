@@ -11,6 +11,6 @@ const pagesRouter = require('./pages');
 router.use('/', authRouter);
 router.use('/users', authVerifier, usersRouter);
 router.use('/movies', authVerifier, moviesRouter);
-router.all('*', pagesRouter);
+router.all('*', authVerifier, pagesRouter);
 
 module.exports = router;
