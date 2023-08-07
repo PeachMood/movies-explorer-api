@@ -29,14 +29,14 @@ function register(req, res, next) {
 }
 
 function login(req, res, next) {
-  const { jwtSecret, expiresInSec } = appConfig;
+  const { domain, jwtSecret, expiresInSec } = appConfig;
   const { email, password } = req.body;
 
   User.findUserByCredentials({ email, password })
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: expiresInSec });
 
-      const options = { httpOnly: true, maxAge: expiresInSec * 1000, sameSite: 'none', secure: true };
+      const options = { httpOnly: true, maxAge: expiresInSec * 1000, sameSite: 'none', secure: true, domain };
       res.cookie('jwt', token, options).json({ message: 'Пользователь успешно авторизован.' });
     })
     .catch(next);
