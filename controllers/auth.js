@@ -37,7 +37,7 @@ function login(req, res, next) {
       const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: expiresInSec });
 
       const options = { httpOnly: true, maxAge: expiresInSec * 1000, sameSite: 'none', secure: true, domain };
-      res.cookie('jwt', token, options).json({ message: 'Пользователь успешно авторизован.' });
+      res.cookie('jwt', token, options).json({ token: 'Пользователь успешно авторизован.' });
     })
     .catch(next);
 }
