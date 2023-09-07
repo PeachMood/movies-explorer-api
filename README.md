@@ -31,6 +31,7 @@ RESTful сервис для работы с фильмами. Позволяет
 Для работы приложения необходимо установить:
 * [Node.js](https://nodejs.org/ru/blog/release/v18.12.0) 18.12+
 * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (обычно идет с Node.js)
+* [MongoDB](https://www.mongodb.com/docs/manual/installation/) 4.4+
 
 #### Установка
 1. Установите npm пакеты
@@ -46,7 +47,29 @@ RESTful сервис для работы с фильмами. Позволяет
    MONGO_DB=bitfilmsdb
    ```
 #### Запуск
-После настройки приложение можно запустить в следующих режимах:
-1. Разработка: `npm run dev`
-2. Деплой: `npm run start`
-3. Линтер: `npm run eslint` или `npm run eslint-fix`
+1. Запустите MongoDB<br/>
+   Windows: 
+   ```
+   mongod
+   ```
+   macOS:
+   ```
+   mongod
+   или
+   brew services start mongodb-community@version
+   ``` 
+   Linux:
+   ```
+   sudo systemctl status mongod 
+   или
+   sudo service mongod start
+   ```
+2. Запустите приложение в одном из режимов<br/>
+   Разработка:
+   ```
+   npm run dev
+   ```
+   Деплой:
+   ```
+   npm run start
+   ```
